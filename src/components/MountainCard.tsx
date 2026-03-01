@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import type { Mountain } from '../types/mountain';
-import { REGION_LABELS, SEASON_ICONS, SEASON_LABELS } from '../types/mountain';
+import { SEASON_ICONS, SEASON_LABELS } from '../types/mountain';
 import { ThemeTag } from './ThemeTag';
 import { DifficultyBadge } from './DifficultyBadge';
 import { MapPin, Mountain as MountainIcon, Trees } from 'lucide-react';
