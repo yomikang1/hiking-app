@@ -1,0 +1,25 @@
+{
+  "name": "산길 - 전국 등산 정보",
+  "short_name": "산길",
+  "description": "전국 등산 정보 - 100대 명산, 테마별 명산 검색, 방문 기록 관리",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#030712",
+  "theme_color": "#10b981",
+  "orientation": "portrait-primary",
+  "lang": "ko",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
