@@ -7,6 +7,16 @@
     color: #fff;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    /* iOS 탭 이벤트 지연 제거 */
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  /* 모든 a, button 요소의 iOS 탭 반응성 개선 */
+  a, button {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
   }
 
   ::-webkit-scrollbar {

@@ -11,7 +11,7 @@ export function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-gray-950/90 backdrop-blur-md border-b border-white/5 safe-top">
+    <header className="sticky top-0 z-50 bg-gray-950/95 border-b border-white/5 safe-top" style={{ backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)' }}>
       <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
         {/* 로고 */}
         <Link to="/" className="flex items-center gap-2.5 group">

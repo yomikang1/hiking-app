@@ -28,7 +28,7 @@ export function MountainCard({ mountain, isFavorite, onToggleFavorite }: Mountai
   return (
     <Link
       to={`/mountain/${mountain.id}`}
-      className={`relative block bg-gradient-to-br ${getCardGradient(mountain.heightM)} border border-white/10 rounded-2xl p-5 hover:border-emerald-500/30 hover:scale-[1.02] transition-all duration-200 group`}
+      className={`relative block bg-gradient-to-br ${getCardGradient(mountain.heightM)} border border-white/10 rounded-2xl p-5 hover:border-emerald-500/30 md:hover:scale-[1.02] transition-colors duration-200 group`}
     >
       {/* 즐겨찾기 버튼 */}
       {onToggleFavorite && (
