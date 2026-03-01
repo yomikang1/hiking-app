@@ -1,23 +1,26 @@
 import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
-import { Home, Search } from 'lucide-react';
+import { Home, Search, BookMarked } from 'lucide-react';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { HomePage } from './pages/HomePage';
 import { SearchPage } from './pages/SearchPage';
 import { MountainDetailPage } from './pages/MountainDetailPage';
+import { MyMountainsPage } from './pages/MyMountainsPage';
 
 function MobileBottomNav() {
   const location = useLocation();
   const navItems = [
     { to: '/', label: '홈', icon: Home },
     { to: '/search', label: '검색', icon: Search },
+    { to: '/my', label: '내 산', icon: BookMarked },
   ];
   return (
     <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-gray-950/95 backdrop-blur-md border-t border-white/5 z-50 safe-area-inset-bottom">
       <div className="flex">
         {navItems.map(({ to, label, icon: Icon }) => {
           const isActive = location.pathname === to ||
-            (to === '/search' && (location.pathname.startsWith('/search') || location.pathname.startsWith('/mountain')));
+            (to === '/search' && (location.pathname.startsWith('/search') || location.pathname.startsWith('/mountain'))) ||
+            (to === '/my' && location.pathname.startsWith('/my'));
           return (
             <Link
               key={to}
@@ -46,6 +49,7 @@ export default function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/search" element={<SearchPage />} />
             <Route path="/mountain/:id" element={<MountainDetailPage />} />
+            <Route path="/my" element={<MyMountainsPage />} />
           </Routes>
         </main>
         <Footer />

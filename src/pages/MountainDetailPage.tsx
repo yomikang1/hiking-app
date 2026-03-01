@@ -1,10 +1,12 @@
+import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, Mountain, MapPin, Clock, Route, ChevronRight } from 'lucide-react';
+import { ArrowLeft, Mountain, MapPin, Clock, Route, ChevronRight, Plus, Calendar, Trash2, CheckCircle } from 'lucide-react';
 import { getMountainById } from '../services/mountainService';
 import { ThemeTag } from '../components/ThemeTag';
 import { DifficultyBadge } from '../components/DifficultyBadge';
 import { REGION_LABELS, SEASON_LABELS, DIFFICULTY_LABELS } from '../types/mountain';
 import type { Season } from '../types/mountain';
+import { useVisitLog } from '../hooks/useVisitLog';
 
 const SEASON_ICONS: Record<Season, string> = {
   spring: '🌸',
@@ -13,9 +15,30 @@ const SEASON_ICONS: Record<Season, string> = {
   winter: '❄️',
 };
 
+function formatDate(dateStr: string) {
+  const d = new Date(dateStr);
+  return `${d.getFullYear()}. ${d.getMonth() + 1}. ${d.getDate()}.`;
+}
+
 export function MountainDetailPage() {
   const { id } = useParams<{ id: string }>();
   const mountain = id ? getMountainById(id) : undefined;
+  const { getVisitsByMountain, addVisit, removeVisit } = useVisitLog();
+  const [showForm, setShowForm] = useState(false);
+  const [formDate, setFormDate] = useState(() => new Date().toISOString().slice(0, 10));
+  const [formMemo, setFormMemo] = useState('');
+  const [justAdded, setJustAdded] = useState(false);
+
+  const visits = mountain ? getVisitsByMountain(mountain.id) : [];
+
+  const handleAddVisit = () => {
+    if (!mountain || !formDate) return;
+    addVisit(mountain.id, formDate, formMemo);
+    setFormMemo('');
+    setShowForm(false);
+    setJustAdded(true);
+    setTimeout(() => setJustAdded(false), 2000);
+  };
 
   if (!mountain) {
     return (
@@ -153,6 +176,108 @@ export function MountainDetailPage() {
               </ul>
             </section>
           )}
+
+          {/* 내 방문 기록 */}
+          <section className="bg-gray-900/60 border border-white/5 rounded-2xl p-4 md:p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-lg font-bold text-white flex items-center gap-2">
+                <Calendar size={18} className="text-emerald-400" />
+                내 방문 기록
+                {visits.length > 0 && (
+                  <span className="text-sm font-normal text-gray-400">({visits.length}회)</span>
+                )}
+              </h2>
+              <button
+                onClick={() => setShowForm((v) => !v)}
+                className="flex items-center gap-1.5 text-sm text-emerald-400 hover:text-emerald-300 transition-colors"
+              >
+                <Plus size={15} />
+                방문 추가
+              </button>
+            </div>
+
+            {/* 추가 폼 */}
+            {showForm && (
+              <div className="bg-white/5 border border-white/10 rounded-xl p-4 mb-4 space-y-3">
+                <div>
+                  <label className="text-xs text-gray-400 mb-1 block">방문 날짜</label>
+                  <input
+                    type="date"
+                    value={formDate}
+                    onChange={(e) => setFormDate(e.target.value)}
+                    className="w-full bg-gray-800 border border-white/10 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-emerald-500"
+                  />
+                </div>
+                <div>
+                  <label className="text-xs text-gray-400 mb-1 block">메모 (선택)</label>
+                  <textarea
+                    value={formMemo}
+                    onChange={(e) => setFormMemo(e.target.value)}
+                    placeholder="날씨, 동행, 코스 후기 등..."
+                    rows={3}
+                    className="w-full bg-gray-800 border border-white/10 rounded-lg px-3 py-2 text-white text-sm placeholder-gray-600 focus:outline-none focus:border-emerald-500 resize-none"
+                  />
+                </div>
+                <div className="flex gap-2">
+                  <button
+                    onClick={handleAddVisit}
+                    disabled={!formDate}
+                    className="flex-1 bg-emerald-500 hover:bg-emerald-400 disabled:opacity-40 text-black font-semibold py-2 rounded-lg text-sm transition-colors"
+                  >
+                    저장
+                  </button>
+                  <button
+                    onClick={() => setShowForm(false)}
+                    className="px-4 bg-white/5 hover:bg-white/10 text-gray-300 py-2 rounded-lg text-sm transition-colors"
+                  >
+                    취소
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* 저장 완료 토스트 */}
+            {justAdded && (
+              <div className="flex items-center gap-2 text-sm text-emerald-400 mb-3 bg-emerald-500/10 border border-emerald-500/20 rounded-lg px-3 py-2">
+                <CheckCircle size={15} />
+                방문 기록이 저장되었습니다
+              </div>
+            )}
+
+            {/* 기존 기록 */}
+            {visits.length === 0 && !showForm ? (
+              <p className="text-sm text-gray-500 text-center py-4">
+                아직 방문 기록이 없습니다
+              </p>
+            ) : (
+              <div className="space-y-2">
+                {visits.map((log) => (
+                  <div
+                    key={log.id}
+                    className="flex items-start gap-3 bg-white/5 rounded-xl px-3 py-2.5"
+                  >
+                    <Calendar size={13} className="text-gray-500 mt-0.5 flex-shrink-0" />
+                    <div className="flex-1 min-w-0">
+                      <span className="text-sm text-gray-200 font-medium">
+                        {formatDate(log.visitDate)}
+                      </span>
+                      {log.memo && (
+                        <p className="text-xs text-gray-500 mt-0.5 leading-relaxed">
+                          {log.memo}
+                        </p>
+                      )}
+                    </div>
+                    <button
+                      onClick={() => removeVisit(log.id)}
+                      className="text-gray-600 hover:text-red-400 transition-colors flex-shrink-0 p-0.5"
+                    >
+                      <Trash2 size={13} />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
+          </section>
         </div>
 
         {/* 오른쪽 - 정보 요약 */}

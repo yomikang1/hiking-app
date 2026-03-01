@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Mountain, Search, Home } from 'lucide-react';
+import { Mountain, Search, Home, BookMarked } from 'lucide-react';
 
 export function Header() {
   const location = useLocation();
@@ -7,6 +7,7 @@ export function Header() {
   const navItems = [
     { to: '/', label: '홈', icon: Home },
     { to: '/search', label: '검색', icon: Search },
+    { to: '/my', label: '내 산', icon: BookMarked },
   ];
 
   return (
@@ -25,7 +26,9 @@ export function Header() {
         {/* 네비게이션 */}
         <nav className="flex items-center gap-1">
           {navItems.map(({ to, label, icon: Icon }) => {
-            const isActive = location.pathname === to;
+            const isActive = location.pathname === to ||
+              (to === '/search' && (location.pathname.startsWith('/search') || location.pathname.startsWith('/mountain'))) ||
+              (to === '/my' && location.pathname.startsWith('/my'));
             return (
               <Link
                 key={to}
