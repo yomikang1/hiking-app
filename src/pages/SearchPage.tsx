@@ -36,8 +36,8 @@ export function SearchPage() {
   }, []);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8">
-      <div className="mb-8">
+    <div className="max-w-6xl mx-auto px-4 py-4 md:py-8">
+      <div className="mb-4 md:mb-8">
         <h1 className="text-2xl font-bold text-white mb-1">산 검색</h1>
         <p className="text-gray-400 text-sm">테마, 지역, 난이도로 나에게 맞는 산을 찾아보세요</p>
       </div>
@@ -81,6 +81,7 @@ export function SearchPage() {
                   onToggleRegion={toggleRegion}
                   onToggleDifficulty={toggleDifficulty}
                   onSetIs100Famous={setIs100Famous}
+                  onSetIsNationalPark={setIsNationalPark}
                   onSetBestSeason={setBestSeason}
                   onClear={clearFilters}
                   hasActiveFilters={hasActiveFilters}

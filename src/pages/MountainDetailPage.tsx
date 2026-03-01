@@ -30,7 +30,7 @@ export function MountainDetailPage() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
+    <div className="max-w-4xl mx-auto px-4 py-4 md:py-8">
       {/* 뒤로가기 */}
       <Link
         to="/search"
@@ -41,7 +41,7 @@ export function MountainDetailPage() {
       </Link>
 
       {/* 헤더 */}
-      <div className="bg-gradient-to-br from-gray-800 to-gray-900 border border-white/10 rounded-2xl p-8 mb-6">
+      <div className="bg-gradient-to-br from-gray-800 to-gray-900 border border-white/10 rounded-2xl p-5 md:p-8 mb-6">
         <div className="flex items-start justify-between flex-wrap gap-4">
           <div>
             <div className="flex items-center gap-3 mb-2">
@@ -82,7 +82,7 @@ export function MountainDetailPage() {
         {/* 왼쪽 - 설명, 코스 */}
         <div className="lg:col-span-2 space-y-6">
           {/* 소개 */}
-          <section className="bg-gray-900/60 border border-white/5 rounded-2xl p-6">
+          <section className="bg-gray-900/60 border border-white/5 rounded-2xl p-4 md:p-6">
             <h2 className="text-lg font-bold text-white mb-3">산 소개</h2>
             <p className="text-gray-300 leading-relaxed text-sm">{mountain.description}</p>
 
@@ -101,7 +101,7 @@ export function MountainDetailPage() {
           </section>
 
           {/* 등산 코스 */}
-          <section className="bg-gray-900/60 border border-white/5 rounded-2xl p-6">
+          <section className="bg-gray-900/60 border border-white/5 rounded-2xl p-4 md:p-6">
             <h2 className="text-lg font-bold text-white mb-4">등산 코스</h2>
             <div className="space-y-4">
               {mountain.courses.map((course, i) => (
@@ -141,7 +141,7 @@ export function MountainDetailPage() {
 
           {/* 팁 */}
           {mountain.tips && mountain.tips.length > 0 && (
-            <section className="bg-amber-900/20 border border-amber-500/20 rounded-2xl p-6">
+            <section className="bg-amber-900/20 border border-amber-500/20 rounded-2xl p-4 md:p-6">
               <h2 className="text-lg font-bold text-white mb-3">💡 산행 팁</h2>
               <ul className="space-y-2">
                 {mountain.tips.map((tip, i) => (

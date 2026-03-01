@@ -16,10 +16,10 @@ export function HomePage() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8 space-y-16">
+    <div className="max-w-6xl mx-auto px-4 py-4 md:py-8 space-y-10 md:space-y-16">
 
       {/* 히어로 */}
-      <section className="text-center py-12">
+      <section className="text-center py-8 md:py-12">
         <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-emerald-500/10 border border-emerald-500/20 rounded-full text-emerald-400 text-sm mb-6">
           <Mountain size={14} />
           전국 등산 정보 모음

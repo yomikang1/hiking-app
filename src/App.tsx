@@ -1,16 +1,47 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
+import { Home, Search } from 'lucide-react';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { HomePage } from './pages/HomePage';
 import { SearchPage } from './pages/SearchPage';
 import { MountainDetailPage } from './pages/MountainDetailPage';
 
+function MobileBottomNav() {
+  const location = useLocation();
+  const navItems = [
+    { to: '/', label: '홈', icon: Home },
+    { to: '/search', label: '검색', icon: Search },
+  ];
+  return (
+    <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-gray-950/95 backdrop-blur-md border-t border-white/5 z-50 safe-area-inset-bottom">
+      <div className="flex">
+        {navItems.map(({ to, label, icon: Icon }) => {
+          const isActive = location.pathname === to ||
+            (to === '/search' && (location.pathname.startsWith('/search') || location.pathname.startsWith('/mountain')));
+          return (
+            <Link
+              key={to}
+              to={to}
+              className={`flex-1 flex flex-col items-center py-3 gap-1 text-xs font-medium transition-colors ${
+                isActive ? 'text-emerald-400' : 'text-gray-500 hover:text-gray-300'
+              }`}
+            >
+              <Icon size={22} />
+              {label}
+            </Link>
+          );
+        })}
+      </div>
+    </nav>
+  );
+}
+
 export default function App() {
   return (
     <BrowserRouter>
       <div className="min-h-screen bg-gray-950 text-white flex flex-col">
         <Header />
-        <main className="flex-1">
+        <main className="flex-1 pb-16 md:pb-0">
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/search" element={<SearchPage />} />
@@ -18,6 +49,7 @@ export default function App() {
           </Routes>
         </main>
         <Footer />
+        <MobileBottomNav />
       </div>
     </BrowserRouter>
   );
