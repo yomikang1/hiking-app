@@ -2,7 +2,7 @@ import { Mountain } from 'lucide-react';
 
 export function Footer() {
   return (
-    <footer className="mt-20 border-t border-white/5 py-10">
+    <footer className="hidden md:block mt-20 border-t border-white/5 py-10">
       <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
         <div className="flex items-center gap-2">
           <div className="w-7 h-7 rounded-lg bg-emerald-500/20 flex items-center justify-center">

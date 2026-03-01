@@ -23,3 +23,21 @@
     background: #4b5563;
   }
 }
+
+/* iOS Safe Area 대응 */
+@layer utilities {
+  /* 헤더: 상단 상태바(시계/배터리) 아래로 내용 밀기 */
+  .safe-top {
+    padding-top: env(safe-area-inset-top);
+  }
+
+  /* 하단 내비게이션: 홈 인디케이터 위에 패딩 */
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  /* 메인 콘텐츠: 하단 nav(64px) + 홈 인디케이터 만큼 여백 */
+  .pb-nav-safe {
+    padding-bottom: calc(4rem + env(safe-area-inset-bottom));
+  }
+}

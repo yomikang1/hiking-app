@@ -15,7 +15,7 @@ function MobileBottomNav() {
     { to: '/my', label: '내 산', icon: BookMarked },
   ];
   return (
-    <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-gray-950/95 backdrop-blur-md border-t border-white/5 z-50 safe-area-inset-bottom">
+    <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-gray-950/95 backdrop-blur-md border-t border-white/5 z-50 pb-safe">
       <div className="flex">
         {navItems.map(({ to, label, icon: Icon }) => {
           const isActive = location.pathname === to ||
@@ -44,7 +44,7 @@ export default function App() {
     <BrowserRouter>
       <div className="min-h-screen bg-gray-950 text-white flex flex-col">
         <Header />
-        <main className="flex-1 pb-16 md:pb-0">
+        <main className="flex-1 pb-nav-safe md:pb-0">
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/search" element={<SearchPage />} />

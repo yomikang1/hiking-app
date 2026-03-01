@@ -11,7 +11,7 @@ export function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-gray-950/90 backdrop-blur-md border-b border-white/5">
+    <header className="sticky top-0 z-50 bg-gray-950/90 backdrop-blur-md border-b border-white/5 safe-top">
       <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
         {/* 로고 */}
         <Link to="/" className="flex items-center gap-2.5 group">
@@ -23,9 +23,10 @@ export function Header() {
           </span>
         </Link>
 
-        {/* 네비게이션 */}
+        {/* 네비게이션 + 새로고침 */}
         <div className="flex items-center gap-1">
-          <nav className="flex items-center gap-1">
+          {/* 데스크탑 nav (모바일은 하단 탭바가 담당) */}
+          <nav className="hidden md:flex items-center gap-1">
             {navItems.map(({ to, label, icon: Icon }) => {
               const isActive = location.pathname === to ||
                 (to === '/search' && (location.pathname.startsWith('/search') || location.pathname.startsWith('/mountain'))) ||
@@ -46,12 +47,13 @@ export function Header() {
               );
             })}
           </nav>
+          {/* 새로고침 버튼 (모바일/데스크탑 모두 표시) */}
           <button
             onClick={() => window.location.reload()}
-            className="p-2 rounded-lg text-gray-500 hover:text-white hover:bg-white/5 transition-all"
+            className="p-2.5 rounded-lg text-gray-500 hover:text-white hover:bg-white/5 transition-all"
             title="새로고침"
           >
-            <RefreshCw size={15} />
+            <RefreshCw size={16} />
           </button>
         </div>
       </div>
