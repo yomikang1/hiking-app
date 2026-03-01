@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { SlidersHorizontal } from 'lucide-react';
 import { useSearch } from '../hooks/useSearch';
+import { useFavorites } from '../hooks/useFavorites';
 import { SearchBar } from '../components/SearchBar';
 import { FilterPanel } from '../components/FilterPanel';
 import { MountainCard } from '../components/MountainCard';
@@ -9,6 +10,7 @@ import type { Theme, Difficulty } from '../types/mountain';
 
 export function SearchPage() {
   const [searchParams] = useSearchParams();
+  const { toggleFavorite, isFavorite } = useFavorites();
   const {
     filters,
     results,
@@ -112,7 +114,12 @@ export function SearchPage() {
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
               {results.map((m) => (
-                <MountainCard key={m.id} mountain={m} />
+                <MountainCard
+                  key={m.id}
+                  mountain={m}
+                  isFavorite={isFavorite(m.id)}
+                  onToggleFavorite={(id, e) => { e.preventDefault(); toggleFavorite(id); }}
+                />
               ))}
             </div>
           )}

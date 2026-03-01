@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { Heart } from 'lucide-react';
 import type { Mountain } from '../types/mountain';
 import { SEASON_ICONS, SEASON_LABELS } from '../types/mountain';
 import { ThemeTag } from './ThemeTag';
@@ -7,6 +8,8 @@ import { MapPin, Mountain as MountainIcon, Trees } from 'lucide-react';
 
 interface MountainCardProps {
   mountain: Mountain;
+  isFavorite?: boolean;
+  onToggleFavorite?: (id: string, e: React.MouseEvent) => void;
 }
 
 function getCardGradient(heightM: number): string {
@@ -21,12 +24,27 @@ function getHeightColor(heightM: number): string {
   return 'text-emerald-400';
 }
 
-export function MountainCard({ mountain }: MountainCardProps) {
+export function MountainCard({ mountain, isFavorite, onToggleFavorite }: MountainCardProps) {
   return (
     <Link
       to={`/mountain/${mountain.id}`}
-      className={`block bg-gradient-to-br ${getCardGradient(mountain.heightM)} border border-white/10 rounded-2xl p-5 hover:border-emerald-500/30 hover:scale-[1.02] transition-all duration-200 group`}
+      className={`relative block bg-gradient-to-br ${getCardGradient(mountain.heightM)} border border-white/10 rounded-2xl p-5 hover:border-emerald-500/30 hover:scale-[1.02] transition-all duration-200 group`}
     >
+      {/* 즐겨찾기 버튼 */}
+      {onToggleFavorite && (
+        <button
+          onClick={(e) => onToggleFavorite(mountain.id, e)}
+          className={`absolute top-3 right-3 p-1.5 rounded-full transition-all z-10 ${
+            isFavorite
+              ? 'text-red-400 bg-red-500/10'
+              : 'text-gray-600 hover:text-red-400 hover:bg-red-500/10'
+          }`}
+          title={isFavorite ? '즐겨찾기 해제' : '즐겨찾기 추가'}
+        >
+          <Heart size={15} fill={isFavorite ? 'currentColor' : 'none'} />
+        </button>
+      )}
+
       {/* 배지 줄 */}
       <div className="flex items-center gap-1.5 mb-3 flex-wrap">
         {mountain.is100Famous && (

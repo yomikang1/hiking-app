@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, Mountain, MapPin, Clock, Route, ChevronRight, Plus, Calendar, Trash2, CheckCircle } from 'lucide-react';
+import { ArrowLeft, Mountain, MapPin, Clock, Route, ChevronRight, Plus, Calendar, Trash2, CheckCircle, Heart } from 'lucide-react';
 import { getMountainById } from '../services/mountainService';
 import { ThemeTag } from '../components/ThemeTag';
 import { DifficultyBadge } from '../components/DifficultyBadge';
 import { REGION_LABELS, SEASON_LABELS, DIFFICULTY_LABELS } from '../types/mountain';
 import type { Season } from '../types/mountain';
 import { useVisitLog } from '../hooks/useVisitLog';
+import { useFavorites } from '../hooks/useFavorites';
 
 const SEASON_ICONS: Record<Season, string> = {
   spring: '🌸',
@@ -24,6 +25,7 @@ export function MountainDetailPage() {
   const { id } = useParams<{ id: string }>();
   const mountain = id ? getMountainById(id) : undefined;
   const { getVisitsByMountain, addVisit, removeVisit } = useVisitLog();
+  const { isFavorite, toggleFavorite } = useFavorites();
   const [showForm, setShowForm] = useState(false);
   const [formDate, setFormDate] = useState(() => new Date().toISOString().slice(0, 10));
   const [formMemo, setFormMemo] = useState('');
@@ -90,7 +92,20 @@ export function MountainDetailPage() {
               </span>
             </div>
           </div>
-          <DifficultyBadge difficulty={mountain.difficulty} />
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => toggleFavorite(mountain.id)}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-sm font-medium transition-all ${
+                isFavorite(mountain.id)
+                  ? 'bg-red-500/15 border-red-500/30 text-red-400'
+                  : 'bg-white/5 border-white/10 text-gray-400 hover:text-red-400 hover:border-red-500/30'
+              }`}
+            >
+              <Heart size={14} fill={isFavorite(mountain.id) ? 'currentColor' : 'none'} />
+              {isFavorite(mountain.id) ? '저장됨' : '저장'}
+            </button>
+            <DifficultyBadge difficulty={mountain.difficulty} />
+          </div>
         </div>
 
         {/* 테마 */}
