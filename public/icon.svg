@@ -1,21 +1,72 @@
 <svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-  <!-- Background -->
-  <rect width="512" height="512" rx="100" fill="#0a1a12"/>
+  <defs>
+    <!-- Background: deep night forest -->
+    <linearGradient id="bg" x1="0" y1="0" x2="0.4" y2="1">
+      <stop offset="0%" stop-color="#0c1f16"/>
+      <stop offset="100%" stop-color="#060d08"/>
+    </linearGradient>
 
-  <!-- Back mountain (darker) -->
-  <polygon points="370,200 470,390 270,390" fill="#065f46"/>
+    <!-- Main mountain: bright emerald at peak, deep at base -->
+    <linearGradient id="mtn" x1="0.5" y1="0" x2="0.5" y2="1">
+      <stop offset="0%" stop-color="#6ee7b7"/>
+      <stop offset="45%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#064e35"/>
+    </linearGradient>
+
+    <!-- Back mountain: very dark -->
+    <linearGradient id="mtnBack" x1="0.5" y1="0" x2="0.5" y2="1">
+      <stop offset="0%" stop-color="#0d2e1e"/>
+      <stop offset="100%" stop-color="#040f09"/>
+    </linearGradient>
+
+    <!-- Snow cap -->
+    <linearGradient id="snow" x1="0" y1="0" x2="0.3" y2="1">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#d1fae5"/>
+    </linearGradient>
+
+    <!-- Atmospheric glow at horizon -->
+    <radialGradient id="horizon" cx="50%" cy="85%" r="55%">
+      <stop offset="0%" stop-color="#10b981" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#10b981" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="512" height="512" rx="114" fill="url(#bg)"/>
+
+  <!-- Atmospheric horizon glow -->
+  <rect width="512" height="512" rx="114" fill="url(#horizon)"/>
+
+  <!-- Stars (various sizes) -->
+  <circle cx="75"  cy="72"  r="2.5" fill="white" opacity="0.6"/>
+  <circle cx="138" cy="44"  r="1.6" fill="white" opacity="0.5"/>
+  <circle cx="192" cy="58"  r="1.2" fill="white" opacity="0.4"/>
+  <circle cx="325" cy="38"  r="1.8" fill="white" opacity="0.45"/>
+  <circle cx="395" cy="62"  r="2.2" fill="white" opacity="0.55"/>
+  <circle cx="452" cy="105" r="1.4" fill="white" opacity="0.35"/>
+  <circle cx="48"  cy="138" r="1.2" fill="white" opacity="0.4"/>
+  <circle cx="430" cy="48"  r="1.0" fill="white" opacity="0.5"/>
+  <circle cx="105" cy="115" r="1.0" fill="white" opacity="0.3"/>
+  <circle cx="465" cy="155" r="1.5" fill="white" opacity="0.3"/>
+  <circle cx="280" cy="52"  r="1.2" fill="white" opacity="0.4"/>
+
+  <!-- Crescent moon (top right) -->
+  <circle cx="415" cy="88" r="22" fill="#0c1f16"/>
+  <circle cx="426" cy="80" r="16" fill="url(#bg)"/>
+  <!-- visible crescent arc -->
+  <path d="M415,66 A22,22 0 1,1 415,110 A16,16 0 1,0 415,66 Z" fill="#d1fae5" opacity="0.7"/>
+
+  <!-- Back mountain (depth layer) -->
+  <polygon points="148,512 308,238 468,512" fill="url(#mtnBack)"/>
 
   <!-- Main mountain -->
-  <polygon points="180,120 340,390 20,390" fill="#059669"/>
+  <polygon points="256,62 455,512 57,512" fill="url(#mtn)"/>
 
-  <!-- Snow / highlight on main peak -->
-  <polygon points="180,120 220,200 140,200" fill="#d1fae5" opacity="0.95"/>
+  <!-- Snow cap -->
+  <polygon points="256,62 313,186 199,186" fill="url(#snow)"/>
 
-  <!-- Trail dot line going up -->
-  <circle cx="236" cy="265" r="5" fill="#6ee7b7" opacity="0.7"/>
-  <circle cx="218" cy="235" r="4" fill="#6ee7b7" opacity="0.6"/>
-  <circle cx="203" cy="208" r="3" fill="#6ee7b7" opacity="0.5"/>
-
-  <!-- 산 text -->
-  <text x="380" y="390" font-family="serif" font-size="110" font-weight="bold" fill="#10b981" opacity="0.85" text-anchor="middle">산</text>
+  <!-- Peak glow dot -->
+  <circle cx="256" cy="60" r="7" fill="white" opacity="0.65"/>
+  <circle cx="256" cy="60" r="14" fill="white" opacity="0.08"/>
 </svg>
