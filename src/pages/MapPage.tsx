@@ -25,7 +25,7 @@ export function MapPage() {
   const mapped = mountains.filter((m) => !!MOUNTAIN_COORDS[m.id]);
 
   return (
-    <div className="relative" style={{ height: 'calc(100svh - 4rem)' }}>
+    <div className="relative map-page-height">
 
       {/* 오버레이 헤더 */}
       <div className="absolute top-0 left-0 right-0 z-[1001] flex items-center justify-between px-4 py-2.5
